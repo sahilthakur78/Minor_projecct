@@ -60,7 +60,6 @@ Copy code
 ## ⚙️ Installation & Setup
 
 ### 1️⃣ Clone the repository
-```bash
 git clone https://github.com/sahilthakur78/Minor_projecct.git
 cd brain_blitz
 2️⃣ Create virtual environment (optional but recommended)
@@ -95,21 +94,7 @@ JavaScript
 
 Python
 
-Java
-
-C++
-
 HTML & CSS
-
-React.js
-
-Data Structures
-
-Algorithms
-
-SQL
-
-Node.js
 
 🧪 Sample Console Logs
 text
