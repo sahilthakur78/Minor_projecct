@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Blitz - Programming & DSA Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="fade-in">
+            <div class="logo">
+                <i class="fas fa-laptop-code"></i>
+                <h1>Brain Blitz</h1>
+            </div>
+            <p class="tagline">Test your programming knowledge & DSA skills!</p>
+        </header>
+
+        <!-- Home Screen -->
+        <div class="home-screen active slide-up">
+            <div class="card">
+                <div class="welcome-text">
+                    <h2>Welcome to Brain Blitz!</h2>
+                    <p>Challenge yourself with programming questions, algorithms, and data structures. Test your coding knowledge and climb the leaderboard!</p>
+                </div>
+                
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-stopwatch"></i>
+                        <h3>Timed Questions</h3>
+                        <p>Think fast, code faster</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-trophy"></i>
+                        <h3>Leaderboard</h3>
+                        <p>Compete with developers</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-code"></i>
+                        <h3>Multiple Languages</h3>
+                        <p>JavaScript, Python, Java & more</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-project-diagram"></i>
+                        <h3>DSA Problems</h3>
+                        <p>Algorithms & data structures</p>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary btn-large btn-full" id="startBtn">
+                    <i class="fas fa-play"></i> Start Quiz
+                </button>
+            </div>
+        </div>
+
+        <!-- Category Selection Screen -->
+        <div class="category-screen slide-up">
+            <div class="card">
+                <div class="category-selection">
+                    <h2>Select Quiz Category</h2>
+                    <p>Choose your preferred programming language or topic to begin the quiz.</p>
+                </div>
+<div class="categories">
+    <div class="category" data-category="javascript">
+        <i class="fab fa-js-square"></i>
+        <h3>JavaScript</h3>
+        <p>ES6+, DOM, Async & more</p>
+    </div>
+    <div class="category" data-category="python">
+        <i class="fab fa-python"></i>
+        <h3>Python</h3>
+        <p>Syntax, libraries, OOP</p>
+    </div>
+    <div class="category" data-category="java">
+        <i class="fab fa-java"></i>
+        <h3>Java</h3>
+        <p>OOP, Collections, JVM</p>
+    </div>
+    <div class="category" data-category="cpp">
+        <i class="fas fa-copyright"></i>
+        <h3>C++</h3>
+        <p>OOP, STL, Memory management</p>
+    </div>
+    <div class="category" data-category="html_css">
+        <i class="fab fa-html5"></i>
+        <h3>HTML & CSS</h3>
+        <p>Web markup & styling</p>
+    </div>
+    <div class="category" data-category="react">
+        <i class="fab fa-react"></i>
+        <h3>React.js</h3>
+        <p>Components, Hooks, State</p>
+    </div>
+    <div class="category" data-category="data_structures">
+        <i class="fas fa-project-diagram"></i>
+        <h3>Data Structures</h3>
+        <p>Arrays, Trees, Graphs</p>
+    </div>
+    <div class="category" data-category="algorithms">
+        <i class="fas fa-brain"></i>
+        <h3>Algorithms</h3>
+        <p>Sorting, Searching, DP</p>
+    </div>
+    <div class="category" data-category="sql">
+        <i class="fas fa-database"></i>
+        <h3>SQL</h3>
+        <p>Queries, Joins, Database</p>
+    </div>
+    <div class="category" data-category="nodejs">
+        <i class="fab fa-node-js"></i>
+        <h3>Node.js</h3>
+        <p>Backend, Express, APIs</p>
+    </div>
+</div>
+        <div style="display: flex; gap: 15px; margin-top: 20px;">
+                    <button class="btn btn-primary btn-full" id="startQuizBtn">
+                        <i class="fas fa-rocket"></i> Start Quiz
+                    </button>
+                    <button class="btn" id="backBtn" style="flex: 0 0 auto;">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+                
+               
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

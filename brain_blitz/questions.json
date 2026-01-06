@@ -1,0 +1,274 @@
+{
+  "javascript": [
+    {
+      "question": "What is the output of: console.log(typeof null)?",
+      "code": "console.log(typeof null);",
+      "options": ["null", "undefined", "object", "string"],
+      "answer": 2
+    },
+    {
+      "question": "Which method adds elements to the end of an array?",
+      "options": ["push()", "pop()", "shift()", "unshift()"],
+      "answer": 0
+    },
+    {
+      "question": "What does '===' operator do in JavaScript?",
+      "options": ["Compares with type conversion", "Assigns value", "Compares without type conversion", "Checks if defined"],
+      "answer": 2
+    },
+    {
+      "question": "What is a closure in JavaScript?",
+      "options": ["Function with access to outer scope", "Way to close browser", "Method to end loop", "Type of object"],
+      "answer": 0
+    },
+    {
+      "question": "Which keyword declares a block-scoped variable?",
+      "options": ["var", "let", "const", "both let and const"],
+      "answer": 3
+    }
+  ],
+  "python": [
+    {
+      "question": "What is the output of: print([i for i in range(3)])?",
+      "code": "print([i for i in range(3)])",
+      "options": ["[0, 1, 2]", "[1, 2, 3]", "[0, 1, 2, 3]", "Error"],
+      "answer": 0
+    },
+    {
+      "question": "Which creates virtual environment in Python?",
+      "options": ["venv", "virtualenv", "pipenv", "All of the above"],
+      "answer": 3
+    },
+    {
+      "question": "What does the 'pass' keyword do?",
+      "options": ["Stops loop", "Placeholder that does nothing", "Passes arguments", "Imports module"],
+      "answer": 1
+    },
+    {
+      "question": "Which data type is mutable in Python?",
+      "options": ["tuple", "string", "list", "int"],
+      "answer": 2
+    },
+    {
+      "question": "How do you create a dictionary?",
+      "options": ["{}", "[]", "()", "dict()"],
+      "answer": 0
+    }
+  ],
+  "java": [
+    {
+      "question": "Which is NOT a primitive data type in Java?",
+      "options": ["int", "boolean", "String", "char"],
+      "answer": 2
+    },
+    {
+      "question": "What is the default value of boolean?",
+      "options": ["true", "false", "null", "0"],
+      "answer": 1
+    },
+    {
+      "question": "Which keyword is used to inherit a class?",
+      "options": ["implements", "extends", "inherits", "super"],
+      "answer": 1
+    },
+    {
+      "question": "What is the size of 'int' in Java?",
+      "options": ["16 bits", "32 bits", "64 bits", "Depends on system"],
+      "answer": 1
+    },
+    {
+      "question": "Which collection allows duplicate elements?",
+      "options": ["Set", "Map", "List", "Queue"],
+      "answer": 2
+    }
+  ],
+  "cpp": [
+    {
+      "question": "What is C++?",
+      "options": ["Pure OOP language", "Procedural language", "Object-oriented programming language", "Functional language"],
+      "answer": 2
+    },
+    {
+      "question": "Which operator is used for dynamic memory allocation?",
+      "options": ["malloc", "new", "alloc", "create"],
+      "answer": 1
+    },
+    {
+      "question": "What is function overloading?",
+      "options": ["Same function name different parameters", "Function calling itself", "Function with no return", "Virtual function"],
+      "answer": 0
+    },
+    {
+      "question": "Which access specifier is most restrictive?",
+      "options": ["public", "private", "protected", "default"],
+      "answer": 1
+    },
+    {
+      "question": "What is a constructor?",
+      "options": ["Special function for object initialization", "Function that destroys objects", "Static function", "Friend function"],
+      "answer": 0
+    }
+  ],
+  "html_css": [
+    {
+      "question": "What does HTML stand for?",
+      "options": ["Hyper Text Markup Language", "High Tech Modern Language", "Hyper Transfer Markup Language", "Home Tool Markup Language"],
+      "answer": 0
+    },
+    {
+      "question": "Which tag creates a hyperlink?",
+      "options": ["<link>", "<a>", "<href>", "<hyperlink>"],
+      "answer": 1
+    },
+    {
+      "question": "What does CSS stand for?",
+      "options": ["Computer Style Sheets", "Creative Style System", "Cascading Style Sheets", "Colorful Style Sheets"],
+      "answer": 2
+    },
+    {
+      "question": "Which property changes text color?",
+      "options": ["text-color", "font-color", "color", "text-style"],
+      "answer": 2
+    },
+    {
+      "question": "How do you make text bold?",
+      "options": ["<bold>", "<strong>", "<b>", "Both <strong> and <b>"],
+      "answer": 3
+    }
+  ],
+  "react": [
+    {
+      "question": "What is React?",
+      "options": ["Programming language", "JavaScript library for UI", "Database", "Operating system"],
+      "answer": 1
+    },
+    {
+      "question": "Which hook manages state in functional components?",
+      "options": ["useEffect", "useState", "useContext", "useReducer"],
+      "answer": 1
+    },
+    {
+      "question": "What is JSX?",
+      "options": ["JavaScript XML", "Java Syntax Extension", "JavaScript Extension", "JS XML"],
+      "answer": 0
+    },
+    {
+      "question": "How do you pass data to child components?",
+      "options": ["state", "props", "context", "redux"],
+      "answer": 1
+    },
+    {
+      "question": "Which method runs after component renders?",
+      "options": ["componentDidMount", "useEffect", "render", "Both componentDidMount and useEffect"],
+      "answer": 3
+    }
+  ],
+  "data_structures": [
+    {
+      "question": "What is the time complexity of array access by index?",
+      "options": ["O(1)", "O(n)", "O(log n)", "O(n²)"],
+      "answer": 0
+    },
+    {
+      "question": "Which data structure uses LIFO principle?",
+      "options": ["Queue", "Stack", "Tree", "Graph"],
+      "answer": 1
+    },
+    {
+      "question": "What is the worst-case time of QuickSort?",
+      "options": ["O(n log n)", "O(n)", "O(n²)", "O(log n)"],
+      "answer": 2
+    },
+    {
+      "question": "In a binary search tree, max children per node?",
+      "options": ["1", "2", "3", "Unlimited"],
+      "answer": 1
+    },
+    {
+      "question": "Which is NOT a linear data structure?",
+      "options": ["Array", "Linked List", "Tree", "Queue"],
+      "answer": 2
+    }
+  ],
+  "algorithms": [
+    {
+      "question": "Which sorting has best worst-case time?",
+      "options": ["Bubble Sort", "QuickSort", "Merge Sort", "Insertion Sort"],
+      "answer": 2
+    },
+    {
+      "question": "Time complexity of binary search?",
+      "options": ["O(1)", "O(n)", "O(log n)", "O(n log n)"],
+      "answer": 2
+    },
+    {
+      "question": "Which paradigm is used in Merge Sort?",
+      "options": ["Greedy", "Divide and Conquer", "Dynamic Programming", "Backtracking"],
+      "answer": 1
+    },
+    {
+      "question": "Which algorithm finds shortest path?",
+      "options": ["BFS", "DFS", "Dijkstra", "Both BFS and Dijkstra"],
+      "answer": 3
+    },
+    {
+      "question": "What is memoization used for?",
+      "options": ["Memory allocation", "Storing results to avoid recomputation", "Memory cleanup", "Data encryption"],
+      "answer": 1
+    }
+  ],
+  "sql": [
+    {
+      "question": "What does SQL stand for?",
+      "options": ["Structured Query Language", "Simple Query Language", "Standard Query Language", "System Query Language"],
+      "answer": 0
+    },
+    {
+      "question": "Which clause filters rows?",
+      "options": ["SELECT", "FROM", "WHERE", "GROUP BY"],
+      "answer": 2
+    },
+    {
+      "question": "Which joins all matching records from both tables?",
+      "options": ["INNER JOIN", "LEFT JOIN", "RIGHT JOIN", "FULL JOIN"],
+      "answer": 0
+    },
+    {
+      "question": "What does GROUP BY do?",
+      "options": ["Groups rows with same values", "Sorts data", "Filters data", "Combines tables"],
+      "answer": 0
+    },
+    {
+      "question": "Which constraint ensures unique values?",
+      "options": ["PRIMARY KEY", "FOREIGN KEY", "UNIQUE", "Both PRIMARY KEY and UNIQUE"],
+      "answer": 3
+    }
+  ],
+  "nodejs": [
+    {
+      "question": "What is Node.js?",
+      "options": ["JavaScript framework", "JavaScript runtime", "Database", "Browser"],
+      "answer": 1
+    },
+    {
+      "question": "Which module handles file system?",
+      "options": ["http", "fs", "path", "os"],
+      "answer": 1
+    },
+    {
+      "question": "What is npm?",
+      "options": ["Node Package Manager", "New Project Manager", "Node Program Module", "Network Package Manager"],
+      "answer": 0
+    },
+    {
+      "question": "How do you import modules?",
+      "options": ["import", "require", "include", "using"],
+      "answer": 1
+    },
+    {
+      "question": "Which is NOT a Node.js framework?",
+      "options": ["Express", "Koa", "Django", "Nest.js"],
+      "answer": 2
+    }
+  ]
+}

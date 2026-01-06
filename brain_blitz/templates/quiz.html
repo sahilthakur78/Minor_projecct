@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Blitz - Quiz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-laptop-code"></i>
+                <h1>Brain Blitz</h1>
+            </div>
+            <p class="tagline" id="categoryDisplay">Loading Quiz...</p>
+        </header>
+
+        <div class="quiz-screen active">
+            <div class="card slide-up">
+                <div class="quiz-header">
+                    <div class="timer">
+                        <i class="fas fa-clock"></i>
+                        <span id="timeLeft">30s</span>
+                    </div>
+                    <div class="score">
+                        Score: <span id="currentScore">0</span>
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress" id="progressBar"></div>
+                    </div>
+                    <div class="question-count" id="questionCount">Question 1 of 3</div>
+                </div>
+                
+                <div class="question-text" id="questionText">Loading question...</div>
+                <div class="code-snippet" id="codeSnippet" style="display: none;"></div>
+                
+                <div class="options" id="optionsContainer">
+                    <div class="option">
+                        <div class="option-letter">A</div>
+                        <div class="option-text">Loading options...</div>
+                    </div>
+                </div>
+                
+                <div class="quiz-controls">
+                    <button class="btn" id="prevBtn">
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button class="btn btn-primary" id="nextBtn">
+                        Next Question <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Pass category from Flask to JavaScript
+        const category = "{{ category }}";
+    </script>
+    
+    <script>
+        // Quiz JavaScript - FIXED SCORE COUNTING
+        console.log("Brain Blitz Quiz - Loaded");
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const quizScreen = document.querySelector('.quiz-screen');
+            const categoryDisplay = document.getElementById('categoryDisplay');
+            const timeLeftEl = document.getElementById('timeLeft');
+            const currentScoreEl = document.getElementById('currentScore');
+            const progressBar = document.getElementById('progressBar');
+            const questionCountEl = document.getElementById('questionCount');
+            const questionTextEl = document.getElementById('questionText');
+            const codeSnippetEl = document.getElementById('codeSnippet');
+            const optionsContainer = document.getElementById('optionsContainer');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            // Quiz state - FIXED: Track answered questions properly
+            let currentQuestionIndex = 0;
+            let score = 0;
+            let timer;
+            let timeLeft = 30;
+            let userAnswers = []; // Track answers for each question
+            let questionScores = []; // Track if each question was answered correctly
+            let selectedOption = null;
+            let questions = [];
+            
+            // Event Listeners
+            prevBtn.addEventListener('click', showPreviousQuestion);
+            nextBtn.addEventListener('click', showNextQuestion);
+            
+            // Initialize quiz
+            initQuiz();
+            
+            async function initQuiz() {
+                try {
+                    console.log("Loading questions for category:", category);
+                    
+                    // Update category display
+                    const categoryNames = {
+                        'javascript': 'JavaScript Quiz',
+                        'python': 'Python Quiz', 
+                        'java': 'Java Quiz',
+                        'cpp': 'C++ Quiz',
+                        'html_css': 'HTML & CSS Quiz',
+                        'react': 'React.js Quiz',
+                        'data_structures': 'Data Structures Quiz',
+                        'algorithms': 'Algorithms Quiz',
+                        'sql': 'SQL Quiz',
+                        'nodejs': 'Node.js Quiz'
+                    };
+                    categoryDisplay.textContent = categoryNames[category] || `${category} Quiz`;
+                    
+                    // Fetch questions
+                    const response = await fetch(`/api/questions/${category}`);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    questions = await response.json();
+                    
+                    console.log(`Loaded ${questions.length} questions`);
+                    
+                    if (questions.length === 0) {
+                        questionTextEl.textContent = "No questions available for this category.";
+                        return;
+                    }
+                    
+                    // Initialize state - FIXED: Proper arrays for tracking
+                    currentQuestionIndex = 0;
+                    score = 0;
+                    userAnswers = new Array(questions.length).fill(null);
+                    questionScores = new Array(questions.length).fill(false);
+                    
+                    loadQuestion();
+                    startTimer();
+                    updateScore();
+                    
+                } catch (error) {
+                    console.error('Error loading questions:', error);
+                    questionTextEl.textContent = "Error loading questions. Please try again.";
+                }
+            }
+            
+            function loadQuestion() {
+                const question = questions[currentQuestionIndex];
+                questionTextEl.textContent = question.question;
+                
+                // Show/hide code snippet
+                if (question.code) {
+                    codeSnippetEl.textContent = question.code;
+                    codeSnippetEl.style.display = 'block';
+                } else {
+                    codeSnippetEl.style.display = 'none';
+                }
+                
+                // Update progress
+                const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+                progressBar.style.width = `${progress}%`;
+                questionCountEl.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+                
+                // Clear and create options
+                optionsContainer.innerHTML = '';
+                
+                question.options.forEach((option, index) => {
+                    const optionElement = document.createElement('div');
+                    optionElement.classList.add('option');
+                    
+                    const optionLetter = document.createElement('div');
+                    optionLetter.classList.add('option-letter');
+                    optionLetter.textContent = String.fromCharCode(65 + index);
+                    
+                    const optionText = document.createElement('div');
+                    optionText.classList.add('option-text');
+                    optionText.textContent = option;
+                    
+                    optionElement.appendChild(optionLetter);
+                    optionElement.appendChild(optionText);
+                    
+                    // Mark selected if already answered
+                    if (userAnswers[currentQuestionIndex] === index) {
+                        optionElement.classList.add('selected');
+                        selectedOption = optionElement;
+                    }
+                    
+                    optionElement.addEventListener('click', () => selectOption(optionElement, index));
+                    optionsContainer.appendChild(optionElement);
+                });
+                
+                // Update button states
+                prevBtn.disabled = currentQuestionIndex === 0;
+                nextBtn.textContent = currentQuestionIndex === questions.length - 1 ? 
+                    'Finish Quiz' : 'Next Question';
+            }
+            
+            function selectOption(optionElement, optionIndex) {
+                console.log(`Selected option ${optionIndex} for question ${currentQuestionIndex}`);
+                
+                // Deselect previous
+                if (selectedOption) {
+                    selectedOption.classList.remove('selected');
+                }
+                
+                // Select new
+                optionElement.classList.add('selected');
+                selectedOption = optionElement;
+                
+                // Store the answer
+                const previousAnswer = userAnswers[currentQuestionIndex];
+                userAnswers[currentQuestionIndex] = optionIndex;
+                
+                // FIXED: Calculate score properly
+                const correctAnswer = questions[currentQuestionIndex].answer;
+                console.log(`Correct answer: ${correctAnswer}, Selected: ${optionIndex}`);
+                
+                // Remove previous score if changing answer
+                if (previousAnswer !== null && questionScores[currentQuestionIndex]) {
+                    if (previousAnswer === correctAnswer) {
+                        score--;
+                        console.log("Removed previous correct answer score");
+                    }
+                }
+                
+                // Add score if correct
+                if (optionIndex === correctAnswer) {
+                    if (!questionScores[currentQuestionIndex]) {
+                        score++;
+                        questionScores[currentQuestionIndex] = true;
+                        console.log("Added score for correct answer");
+                    }
+                } else {
+                    questionScores[currentQuestionIndex] = false;
+                }
+                
+                updateScore();
+                console.log(`Current score: ${score}`);
+            }
+            
+            function showPreviousQuestion() {
+                if (currentQuestionIndex > 0) {
+                    currentQuestionIndex--;
+                    loadQuestion();
+                    resetTimer();
+                }
+            }
+            
+            function showNextQuestion() {
+                // FIXED: Allow proceeding even if no answer selected
+                if (currentQuestionIndex < questions.length - 1) {
+                    currentQuestionIndex++;
+                    loadQuestion();
+                    resetTimer();
+                } else {
+                    finishQuiz();
+                }
+            }
+            
+            function startTimer() {
+                clearInterval(timer);
+                timeLeft = 30;
+                updateTimerDisplay();
+                
+                timer = setInterval(() => {
+                    timeLeft--;
+                    updateTimerDisplay();
+                    
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        // Auto-advance or finish
+                        if (currentQuestionIndex < questions.length - 1) {
+                            currentQuestionIndex++;
+                            loadQuestion();
+                            startTimer();
+                        } else {
+                            finishQuiz();
+                        }
+                    }
+                }, 1000);
+            }
+            
+            function resetTimer() {
+                clearInterval(timer);
+                startTimer();
+            }
+            
+            function updateTimerDisplay() {
+                timeLeftEl.textContent = `${timeLeft}s`;
+                
+                // Visual warning when time is low
+                if (timeLeft <= 10) {
+                    timeLeftEl.style.color = 'var(--danger)';
+                    timeLeftEl.style.fontWeight = 'bold';
+                } else {
+                    timeLeftEl.style.color = 'var(--primary-blue)';
+                    timeLeftEl.style.fontWeight = 'normal';
+                }
+            }
+            
+            function updateScore() {
+                currentScoreEl.textContent = score;
+                console.log(`Score updated: ${score}`);
+            }
+            
+            function finishQuiz() {
+                clearInterval(timer);
+                console.log(`Final score: ${score}/${questions.length}`);
+                console.log(`User answers:`, userAnswers);
+                console.log(`Question scores:`, questionScores);
+                
+                window.location.href = `/result?score=${score}&total=${questions.length}&category=${category}`;
+            }
+        });
+    </script>
+</body>
+</html>
